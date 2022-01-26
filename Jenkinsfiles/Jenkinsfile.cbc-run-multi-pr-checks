@@ -1,0 +1,71 @@
+pipeline {
+  agent {
+    kubernetes {
+      defaultContainer "bb2-node-js-react-sample-app-cbc-build"
+      yamlFile "Jenkinsfiles/cbc-pod-deployment-config.yaml"
+    }
+  }
+
+  environment {
+    ENABLE_LINTER = false
+  }
+
+  parameters {
+    booleanParam(
+        name: 'RUN_SELENIUM_TESTS', 
+        defaultValue: false, 
+        description: 'Set to true, selenium tests will be run as part of tests'
+    )
+  }
+
+  stages {
+    stage("YARN INSTALL SERVER") {
+      steps {
+        sh """
+          cd server;yarn install
+        """
+      }
+    }
+
+    stage("YARN INSTALL CLIENT") {
+      steps {
+        sh """
+          cd client;yarn install
+        """
+      }
+    }
+
+    stage("ESLint server") {
+      steps{
+        sh """
+          cd server;node_modules/.bin/eslint -c eslintrc.json src/**/*.ts
+        """
+      }
+    }
+
+    stage("ESLint client") {
+      steps{
+        sh """
+          cd client;node_modules/.bin/eslint -c eslintrc.json src/**/*.ts
+        """
+      }
+    }
+
+    stage("Start server") {
+      steps {
+        sh """
+          cd server;yarn star:dev
+        """
+      }
+    }
+
+    stage("Start client") {
+      steps {
+        sh """
+          cd client;yarn start
+        """
+      }
+    }
+
+  }
+}
