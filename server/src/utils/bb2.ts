@@ -5,7 +5,7 @@ import config from '../configs/config';
 import { generateCodeChallenge, generateRandomState } from './generatePKCE';
 import { post, postWithConfig } from './request';
 
-const envConfig = config[db.settings.env];
+const envConfig: ConfigType = config[db.settings.env];
 
 function getURL(path: string): string {
     return `${envConfig?.bb2BaseUrl || 'NoBaseURL'}/${db.settings.version || 'NoVersion'}/${path}`;
