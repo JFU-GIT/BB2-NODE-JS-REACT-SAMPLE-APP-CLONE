@@ -8,19 +8,19 @@ import { post, postWithConfig } from './request';
 const envConfig = config[db.settings.env];
 
 function getURL(path: string): string {
-    return `${envConfig?.bb2BaseUrl.toString() || 'NoBaseURL'}/${db.settings.version || 'NoVersion'}/${path}`;
+    return `${envConfig?.bb2BaseUrl || 'NoBaseURL'}/${db.settings.version || 'NoVersion'}/${path}`;
 }
 
 function getClientId(): string {
-    return `${envConfig?.bb2ClientId.toString()}`;
+    return envConfig.bb2ClientId || 'undefined';
 }
 
 function getClientSecret(): string {
-    return `${envConfig?.bb2ClientSecret.toString()}`;
+    return envConfig?.bb2ClientSecret || 'undefined';
 }
 
 function getCallbackUrl(): string {
-    return `${envConfig?.bb2CallbackUrl.toString()}`;
+    return envConfig?.bb2CallbackUrl || 'undefined';
 }
 
 export function generateAuthorizeUrl(): string {
