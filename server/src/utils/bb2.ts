@@ -5,22 +5,22 @@ import config from '../configs/config';
 import { generateCodeChallenge, generateRandomState } from './generatePKCE';
 import { post, postWithConfig } from './request';
 
-const envConfig: ConfigType = config[db.settings.env];
+const envConfig = config[db.settings.env];
 
 function getURL(path: string): string {
-    return `${envConfig?.bb2BaseUrl || 'NoBaseURL'}/${db.settings.version || 'NoVersion'}/${path}`;
+    return `${String(envConfig.bb2BaseUrl)}/${db.settings.version}/${path}`;
 }
 
 function getClientId(): string {
-    return envConfig.bb2ClientId || 'undefined';
+    return String(envConfig.bb2ClientId);
 }
 
 function getClientSecret(): string {
-    return envConfig?.bb2ClientSecret || 'undefined';
+    return String(envConfig.bb2ClientSecret);
 }
 
 function getCallbackUrl(): string {
-    return envConfig?.bb2CallbackUrl || 'undefined';
+    return String(envConfig.bb2CallbackUrl);
 }
 
 export function generateAuthorizeUrl(): string {

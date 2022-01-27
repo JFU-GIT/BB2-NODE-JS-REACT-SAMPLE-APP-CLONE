@@ -9,7 +9,7 @@ import { get } from '../utils/request';
 const envConfig = config[db.settings.env];
 
 function getURL(path: string): string {
-    return `${String(envConfig?.bb2BaseUrl) || 'NoBaseURL'}/${db.settings.version || 'NoVersion'}/${path}`;
+    return `${String(envConfig.bb2BaseUrl)}/${db.settings.version}/${path}`;
 }
 
 /* DEVELOPER NOTES:
