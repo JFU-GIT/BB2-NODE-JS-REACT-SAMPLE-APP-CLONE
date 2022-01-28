@@ -23,4 +23,4 @@ jobs:
           run: yarn --cwd client lint 
 
         - name: Run server tests
-          run: yarn test 
+          run: yarn --cwd server test
