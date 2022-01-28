@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import moment from 'moment';
 import { getLoggedInUser } from '../utils/user';
 import { refreshAccessToken } from '../utils/bb2';
-import config from '../configs/config';
+import config from '@configs/config';
 import db from '../utils/db';
 import { get } from '../utils/request';
 
